@@ -1,5 +1,6 @@
 {
   "models": "Models",
   "model-loading": "Model Loading",
-  "embeddings": "Embeddings"
+  "embeddings": "Embeddings",
+  "context": "Context"
 }
