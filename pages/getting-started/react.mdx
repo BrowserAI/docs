@@ -1,0 +1,161 @@
+Here is a draft for the `pages/getting-started/react.mdx` file:
+
+```mdx
+# Getting Started with React
+
+This guide covers how to integrate BrowserAI with a React application. By following these steps, you can easily leverage powerful AI capabilities directly in your React projects.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your development environment:
+
+- Node.js 16.14.x or later
+- npm or yarn
+- Create React App (for setting up a new project)
+
+## Setting Up Your React Project
+
+If you don't already have a React project, you can set one up using Create React App. Open your terminal and run:
+
+```bash
+npx create-react-app my-browserai-app
+cd my-browserai-app
+```
+
+## Installing BrowserAI
+
+Next, install BrowserAI as a dependency in your project:
+
+```bash
+npm install browserai
+# or
+yarn add browserai
+```
+
+## Using BrowserAI in Your React Application
+
+### Initializing the Model
+
+To use BrowserAI in your React application, you need to initialize the model. Here’s how you can do it:
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import { initializeModel } from 'browserai';
+
+function App() {
+  const [model, setModel] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  useEffect(() => {
+    async function setupModel() {
+      const loadedModel = await initializeModel('Mistral 7B', (progress) => {
+        setLoadingProgress(progress);
+      });
+      setModel(loadedModel);
+      setLoading(false);
+    }
+
+    setupModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered React Application</h1>
+      {loading ? (
+        <div>
+          <p>Loading model... {loadingProgress}%</p>
+        </div>
+      ) : (
+        <p>Model loaded successfully!</p>
+      )}
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Using the Model
+
+Once the model is loaded, you can use it to perform inference tasks. Here’s an example of using the model for text generation:
+
+```jsx
+import React, { useState } from 'react';
+import { useGenLLM } from 'browserai';
+
+function TextGenerator() {
+  const [input, setInput] = useState('');
+  const { response, runInference } = useGenLLM({ model: 'Mistral 7B' });
+
+  const handleSubmit = () => {
+    runInference(input);
+  };
+
+  return (
+    <div>
+      <h2>Text Generator</h2>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Generate Text</button>
+      {response && <p>Response: {response}</p>}
+    </div>
+  );
+}
+
+export default TextGenerator;
+```
+
+## Customizing Hardware Preferences
+
+BrowserAI intelligently probes for available hardware, but you can also specify hardware preferences for your model execution:
+
+```jsx
+import React, { useEffect, useState } from 'react';
+import { initializeModel } from 'browserai';
+
+function App() {
+  const [model, setModel] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+
+  useEffect(() => {
+    async function setupModel() {
+      const loadedModel = await initializeModel('Mistral 7B', { hardware: 'gpu' }, (progress) => {
+        setLoadingProgress(progress);
+      });
+      setModel(loadedModel);
+      setLoading(false);
+    }
+
+    setupModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered React Application</h1>
+      {loading ? (
+        <div>
+          <p>Loading model... {loadingProgress}%</p>
+        </div>
+      ) : (
+        <p>Model loaded successfully on GPU!</p>
+      )}
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Conclusion
+
+Integrating BrowserAI with a React application is straightforward and opens up powerful AI capabilities directly in the browser. By following this guide, you can get started quickly and efficiently, leveraging the advanced features of BrowserAI to build intelligent and responsive applications.
+
+For more detailed information and advanced usage, refer to the [BrowserAI Documentation](https://example.com/docs).
+```
+
+This draft provides a comprehensive guide on how to set up and integrate BrowserAI with a React application, including installing the necessary dependencies, initializing models, and providing examples of using the models in the application. It also covers how to customize hardware preferences for optimal performance.
