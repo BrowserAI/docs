@@ -1,0 +1,106 @@
+# Models
+
+In the context of BrowserAI, models refer to pre-trained machine learning models that are used to perform various AI tasks, such as natural language processing, image recognition, and more. These models are at the heart of making your applications intelligent and capable of understanding and generating human-like responses.
+
+## Types of Models
+
+BrowserAI supports a variety of open-source models that can be used for different purposes. Here are some commonly used models:
+
+### 1. Mistral 7B
+Mistral 7B is known for its ability to handle long context lengths, making it suitable for tasks involving extended text, such as document summarization and long-form question answering.
+
+### 2. OpenHermes
+OpenHermes models range from 2.5 billion to 13 billion parameters. They offer efficient training and inference and are versatile for various language understanding and generation tasks.
+
+### 3. LLaMA 2
+LLaMA 2 models, ranging from 7 billion to 13 billion parameters, provide competitive performance on NLP tasks and support long context lengths, enabling better understanding of extended text.
+
+### 4. Falcon 7B
+Falcon 7B is designed with high-quality training data and optimal architecture, making it efficient for various NLP tasks.
+
+### 5. GPT-J 6B
+GPT-J 6B is a versatile model with strong performance on various language tasks, serving as a foundation for many derivative models and applications.
+
+### 6. Orion-14B
+Orion-14B supports ultra-long context lengths and offers strong multilingual capabilities, performing exceptionally well in multiple languages.
+
+## Loading Models
+
+Loading models in BrowserAI is designed to be straightforward and efficient. Models can be loaded asynchronously to ensure that your application remains responsive.
+
+### Example: Loading a Model
+
+```jsx
+import { useState, useEffect } from 'react';
+import { loadModel } from 'browserai';
+
+function App() {
+  const [model, setModel] = useState(null);
+
+  useEffect(() => {
+    async function fetchModel() {
+      const loadedModel = await loadModel('Mistral 7B');
+      setModel(loadedModel);
+    }
+    fetchModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+      {model ? <p>Model loaded successfully!</p> : <p>Loading model...</p>}
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Using Models
+
+Once a model is loaded, you can use it to perform inference tasks. This involves passing input data to the model and receiving the output, which can be text, classifications, or other forms of data.
+
+### Example: Using a Model for Text Generation
+
+```jsx
+import { useState } from 'react';
+import { useGenLLM } from 'browserai';
+
+function TextGenerator() {
+  const [input, setInput] = useState('');
+  const { response, runInference } = useGenLLM({ model: 'Mistral 7B' });
+
+  const handleSubmit = () => {
+    runInference(input);
+  };
+
+  return (
+    <div>
+      <h2>Text Generator</h2>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Generate Text</button>
+      {response && <p>Response: {response}</p>}
+    </div>
+  );
+}
+
+export default TextGenerator;
+```
+
+## Model Selection
+
+Choosing the right model for your task is crucial for achieving the best performance and accuracy. Consider the following factors when selecting a model:
+
+- **Task Requirements**: Different models are optimized for different tasks. Choose a model that aligns with your application's needs.
+- **Model Size**: Larger models generally offer better performance but require more computational resources.
+- **Inference Speed**: Consider the response time required for your application. Some models may be slower but more accurate.
+
+## Conclusion
+
+Understanding and utilizing models effectively is key to building intelligent applications with BrowserAI. By selecting the appropriate model and integrating it seamlessly into your application, you can unlock the full potential of AI-powered features.
+
+For more information on specific models and their capabilities, refer to the [Model Documentation](https://example.com/models).
