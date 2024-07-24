@@ -1,22 +1,43 @@
 ---
-description: BrowserAI is the revolutionary framework for running Large Language Models (LLMs) directly in the browser, bringing powerful AI capabilities to your fingertips.
+title: BrowserAI Documentation
+description: BrowserAI is a revolutionary framework for running Large Language Models (LLMs) directly in the browser, bringing powerful AI capabilities to your fingertips.
 ---
+
 # Introduction to BrowserAI
 
 Welcome to BrowserAI, the cutting-edge framework that empowers developers to integrate and run Large Language Models (LLMs) directly in the browser. With BrowserAI, harnessing the power of advanced AI becomes seamless, efficient, and incredibly accessible.
+
+## Overview: Core Platform Features
+
+### Develop
+
+- **Intelligent Hardware Probing:** Automatically detect and utilize the best available hardware to optimize performance. Learn more in our [Local Hardware Guide](/concepts/local-hardware).
+- **Declarative AI Integration:** Simple APIs to integrate LLMs into your web apps without worrying about underlying complexities. Check out our [Getting Started](/getting-started).
+- **Multi-Model Support:** Compatibility with various LLM architectures and versions. Explore more in our [Models](/concepts/models) section.
+- **Optimized Performance:** Efficient use of WebAssembly (WASM) for high-speed processing.
+
+### Monitor
+
+- **Real-Time Progress Tracking:** Provide feedback to users on model loading times and progress. Implement this using our [Model Loading Guide](/concepts/model-loading).
+- **Advanced Analytics:** Track and analyze model performance to ensure optimal user experience.
+
+### Test
+
+- **Flexible Integration:** Supports popular frontend libraries like React, Vue, and Svelte.
+- **Live-Reload and Debugging:** Ensure a smooth development workflow with built-in live-reload and debugging tools.
 
 ## The Need for BrowserAI
 
 As the demand for intelligent web applications grows, so does the need for on-device AI processing. Running LLMs directly in the browser offers numerous benefits:
 
-1. **Privacy**: Data never leaves the user's device, ensuring maximum privacy and security.
-2. **Performance**: Real-time processing without the latency of server round-trips.
-3. **Accessibility**: AI capabilities accessible even without a stable internet connection.
-4. **Cost-Efficiency**: Reduce server costs and dependency on cloud-based AI services.
+1. **Privacy:** Data never leaves the user's device, ensuring maximum privacy and security.
+2. **Performance:** Real-time processing without the latency of server round-trips.
+3. **Accessibility:** AI capabilities accessible even without a stable internet connection.
+4. **Cost-Efficiency:** Reduce server costs and dependency on cloud-based AI services.
 
 ## The Evolution of Large Language Models
 
-Over the past few years, the size and complexity of Large Language Models have increased dramatically. Models like GPT-3, with 175 billion parameters, and others of similar scale, were once unimaginable to run on local devices due to their immense computational demands. These cutting-edge models required powerful cloud-based servers and specialized hardware to operate effectively.
+Over the past few years, the size and complexity of Large Language Models have increased dramatically. Models like GPT-3, with 175 billion parameters, were once unimaginable to run on local devices due to their immense computational demands. These cutting-edge models required powerful cloud-based servers and specialized hardware to operate effectively.
 
 However, with the continuous advancement in computer technology, particularly following Moore's Law, which predicts the doubling of transistors in integrated circuits approximately every two years, we are now witnessing a significant shift. Modern GPUs have become increasingly powerful, enabling even relatively modern personal computers to handle sophisticated AI models.
 
@@ -24,20 +45,34 @@ However, with the continuous advancement in computer technology, particularly fo
 
 The acceleration of modern computing capabilities, particularly in GPU technology, has paved the way for running advanced AI models directly on devices. This progress means that models, which previously could only run on high-end servers, can now be comfortably executed on consumer-grade hardware. This democratization of AI technology opens up new possibilities for developers and users alike.
 
-## BrowserAI Framework
+## Get Started
+import { Cards, Card } from 'nextra/components'
 
-Say goodbye to the complexities of embedding AI in web applications. The BrowserAI Framework offers a declarative development experience, allowing you to focus on building innovative AI features without worrying about underlying intricacies.
 
-With first-class support for popular frontend libraries like React, Vue, and Svelte, and seamless integration with WebAssembly, BrowserAI makes it easy to build sophisticated AI-powered applications. Live-reload and built-in debugging tools ensure a smooth development workflow.
+<Cards num={3}>
+  <Card href="/concepts/model-loading" title="Model Loading" image arrow>
+    ![Model Loading](/images/cards/loading.svg)
+  </Card>
+  <Card href="/getting-started" title="Quickstart" image arrow>
+    ![Quickstart](/images/cards/rocket.svg)
+  </Card>
+  <Card href="/demo" title="Interactive Demo" image arrow>
+    ![Interactive Demo](/images/cards/demo.svg)
+  </Card>
+</Cards>
 
-Key features:
-- **Declarative AI Integration**: Simple APIs to integrate LLMs into your web apps.
-- **Multi-Model Support**: Compatibility with various LLM architectures and versions.
-- **Optimized Performance**: Efficient use of WebAssembly for high-speed processing.
+## Why BrowserAI?
 
-To get started: [Click Here](/framework#getting-started)
+import { Callout } from "nextra/components";
 
-To migrate: [Click Here](/quickstarts/migrate-to-browserai)
+<Callout type="info">
+  Discover more about the benefits of using BrowserAI: [Why BrowserAI?](/why)
+</Callout>
+
+- **Open-source:** Transparent and community-driven development.
+- **Model and framework agnostic:** Works with various AI models and web frameworks.
+- **Built for production:** Reliable and scalable for real-world applications.
+- **Incrementally adoptable:** Start with a single LLM call or integration, then expand to full tracing of complex chains/agents.
 
 ## Community and Support
 

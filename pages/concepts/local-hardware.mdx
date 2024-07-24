@@ -1,0 +1,168 @@
+# Local Hardware
+
+BrowserAI intelligently probes for available hardware to optimize the performance of AI models in the browser. By leveraging various frameworks like WASM, WebGPU, and WebGL, BrowserAI ensures efficient model execution based on the detected hardware. This guide covers how BrowserAI utilizes local hardware, how developers can specify hardware preferences, and the different frameworks supported.
+
+## Intelligent Hardware Probing
+
+BrowserAI automatically detects and utilizes the available hardware on the user's device to optimize model performance. This includes probing for CPUs, GPUs, and other accelerators that can enhance the efficiency of model execution.
+
+### Example: Automatic Hardware Detection
+
+```jsx
+import { useEffect } from 'react';
+import { initializeModel } from 'browserai';
+
+function App() {
+  useEffect(() => {
+    async function setupModel() {
+      const model = await initializeModel('Mistral 7B');
+      // BrowserAI will automatically choose the best hardware available
+      console.log('Model initialized with optimal hardware');
+    }
+
+    setupModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+
+In this example, `initializeModel` automatically probes and utilizes the best available hardware for running the model.
+
+## Specifying Hardware Preferences
+
+Developers can also specify the hardware to be used for model execution. This allows for greater control over the performance and resource usage of the application.
+
+### Example: Specifying Hardware
+
+```jsx
+import { useEffect } from 'react';
+import { initializeModel } from 'browserai';
+
+function App() {
+  useEffect(() => {
+    async function setupModel() {
+      const model = await initializeModel('Mistral 7B', { hardware: 'gpu' });
+      console.log('Model initialized on GPU');
+    }
+
+    setupModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+
+In this example, the `hardware` option is set to `'gpu'`, instructing BrowserAI to use the GPU if available.
+
+## Supported Frameworks
+
+BrowserAI supports multiple frameworks to execute models efficiently across different hardware configurations:
+
+### WebAssembly (WASM)
+
+WebAssembly (WASM) enables high-performance execution of code in web browsers. It is a portable, low-level binary code format that allows for near-native performance and can be used to run AI models efficiently.
+
+### Example: Using WebAssembly
+
+```jsx
+import { useEffect } from 'react';
+import { initializeModel } from 'browserai';
+
+function App() {
+  useEffect(() => {
+    async function setupModel() {
+      const model = await initializeModel('Mistral 7B', { framework: 'wasm' });
+      console.log('Model initialized with WebAssembly');
+    }
+
+    setupModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### WebGPU
+
+WebGPU is a modern graphics API that provides high-performance, low-level access to the GPU. It is designed to work across various platforms and is ideal for compute-intensive tasks like running AI models.
+
+### Example: Using WebGPU
+
+```jsx
+import { useEffect } from 'react';
+import { initializeModel } from 'browserai';
+
+function App() {
+  useEffect(() => {
+    async function setupModel() {
+      const model = await initializeModel('Mistral 7B', { framework: 'webgpu' });
+      console.log('Model initialized with WebGPU');
+    }
+
+    setupModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### WebGL
+
+WebGL is a JavaScript API for rendering interactive 2D and 3D graphics within any compatible web browser without the use of plug-ins. It leverages the GPU to perform parallel computations, making it suitable for certain types of AI model execution.
+
+### Example: Using WebGL
+
+```jsx
+import { useEffect } from 'react';
+import { initializeModel } from 'browserai';
+
+function App() {
+  useEffect(() => {
+    async function setupModel() {
+      const model = await initializeModel('Mistral 7B', { framework: 'webgl' });
+      console.log('Model initialized with WebGL');
+    }
+
+    setupModel();
+  }, []);
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Conclusion
+
+By intelligently probing for available hardware and allowing developers to specify preferences, BrowserAI ensures efficient execution of AI models in the browser. Leveraging frameworks like WASM, WebGPU, and WebGL, BrowserAI maximizes performance based on the detected hardware.
+
+For more information on hardware optimization and supported frameworks, refer to the [BrowserAI Documentation](https://example.com/docs).
