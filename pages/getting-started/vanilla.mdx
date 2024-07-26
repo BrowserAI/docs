@@ -1,0 +1,172 @@
+---
+title: Vanilla JS
+description: Learn how to integrate Mysterian directly into your Vanilla JS applications without any framework.
+---
+
+# Vanilla JS
+
+This guide covers how to integrate Mysterian with a Vanilla JS application. By following these steps, you can leverage powerful AI capabilities directly in your web applications without the need for any frameworks.
+
+## Getting Started
+
+To use Mysterian in a Vanilla JS project, you'll need to include the Mysterian library and set it up to append to the `window` object as `window.mysterian`.
+
+### Including the Mysterian Library
+
+You can include the Mysterian library via a script tag in your HTML file. Here’s an example of how to do it:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla JS Mysterian Integration</title>
+</head>
+<body>
+  <div id="app">
+    <h1>AI-Powered Vanilla JS App</h1>
+    <input type="text" id="user-input" placeholder="Ask AI something...">
+    <button id="ask-button">Ask AI</button>
+    <p id="response"></p>
+  </div>
+
+  <!-- Include the Mysterian library -->
+  <script src="https://cdn.mysterian.com/mysterian.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+### Initializing Mysterian
+
+In your `app.js` file, you can initialize Mysterian and set up the necessary functions to handle AI interactions.
+
+```javascript
+// app.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize Mysterian
+  window.mysterian.initializeModel('Llama7B')
+    .then(model => {
+      console.log('Model loaded successfully:', model);
+      setupUI(model);
+    })
+    .catch(error => {
+      console.error('Error loading model:', error);
+    });
+
+  function setupUI(model) {
+    const inputField = document.getElementById('user-input');
+    const askButton = document.getElementById('ask-button');
+    const responseParagraph = document.getElementById('response');
+
+    askButton.addEventListener('click', () => {
+      const userInput = inputField.value;
+      if (userInput) {
+        window.mysterian.runInference(model, userInput)
+          .then(response => {
+            responseParagraph.textContent = `Response: ${response}`;
+          })
+          .catch(error => {
+            responseParagraph.textContent = `Error: ${error.message}`;
+          });
+      }
+    });
+  }
+});
+```
+
+## Customizing Hardware Preferences
+
+Mysterian intelligently probes for available hardware, but you can also specify hardware preferences for your model execution. Here’s how to do it:
+
+```javascript
+// app.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize Mysterian with custom hardware preference
+  window.mysterian.initializeModel('Llama7B', { hardware: 'gpu' })
+    .then(model => {
+      console.log('Model loaded successfully on GPU:', model);
+      setupUI(model);
+    })
+    .catch(error => {
+      console.error('Error loading model:', error);
+    });
+
+  function setupUI(model) {
+    const inputField = document.getElementById('user-input');
+    const askButton = document.getElementById('ask-button');
+    const responseParagraph = document.getElementById('response');
+
+    askButton.addEventListener('click', () => {
+      const userInput = inputField.value;
+      if (userInput) {
+        window.mysterian.runInference(model, userInput)
+          .then(response => {
+            responseParagraph.textContent = `Response: ${response}`;
+          })
+          .catch(error => {
+            responseParagraph.textContent = `Error: ${error.message}`;
+          });
+      }
+    });
+  }
+});
+```
+
+## Handling Errors
+
+Handling errors is crucial for providing a robust user experience. Here’s an example of how to handle errors in your Vanilla JS application:
+
+```javascript
+// app.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize Mysterian
+  window.mysterian.initializeModel('Llama7B')
+    .then(model => {
+      console.log('Model loaded successfully:', model);
+      setupUI(model);
+    })
+    .catch(error => {
+      console.error('Error loading model:', error);
+      alert(`Error loading model: ${error.message}`);
+    });
+
+  function setupUI(model) {
+    const inputField = document.getElementById('user-input');
+    const askButton = document.getElementById('ask-button');
+    const responseParagraph = document.getElementById('response');
+
+    askButton.addEventListener('click', () => {
+      const userInput = inputField.value;
+      if (userInput) {
+        window.mysterian.runInference(model, userInput)
+          .then(response => {
+            responseParagraph.textContent = `Response: ${response}`;
+          })
+          .catch(error => {
+            responseParagraph.textContent = `Error: ${error.message}`;
+          });
+      } else {
+        alert('Please enter a question before asking the AI.');
+      }
+    });
+  }
+});
+```
+
+## Conclusion
+
+Integrating Mysterian with a Vanilla JS application is straightforward and opens up powerful AI capabilities directly in the browser. By following this guide, you can get started quickly and efficiently, leveraging the advanced features of Mysterian to build intelligent and responsive applications.
+
+For more detailed information and advanced usage, refer to the [Mysterian Documentation](https://example.com/docs).
+
+## Community
+
+Join the Mysterian community on [Discord](https://www.mysterian.com/s/d). Whether you need help, want to share your creations, or simply chat about AI and web development, our community is the place to be!
+
+If you find a bug in Mysterian, please report it using our [Bug Report Form](/bug).
+
+Our [Code of Conduct](https://github.com/MysterianAI/mysterian/blob/main/.github/CODE_OF_CONDUCT.md) applies to all Mysterian community channels.
+
+We look forward to seeing what you create with Mysterian. Let's push the boundaries of what's possible in the browser together!

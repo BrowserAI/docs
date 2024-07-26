@@ -1,89 +1,76 @@
-# Getting Started with React
+---
+title: React & Next.js Integration
+description: Learn how to integrate Mysterian with React and Next.js to leverage powerful AI capabilities directly in your applications.
+---
 
-This guide covers how to integrate BrowserAI with a React application. By following these steps, you can easily leverage powerful AI capabilities directly in your React projects.
+# React & Next.js Integration
 
-## Prerequisites
+This guide covers how to integrate Mysterian with React and Next.js. By following these steps, you can easily leverage powerful AI capabilities directly in your applications.
 
-Before you begin, ensure you have the following installed on your development environment:
+## Getting Started
 
-- Node.js 16.14.x or later
-- npm or yarn
-- Create React App (for setting up a new project)
+Create a [new React or Next.js project](https://nextjs.org/docs/getting-started/installation) or open an existing one.
 
-## Setting Up Your React Project
+Install the required packages:
 
-If you don't already have a React project, you can set one up using Create React App. Open your terminal and run:
-
-```bash
-npx create-react-app my-browserai-app
-cd my-browserai-app
+```bash npm2yarn
+npm install mysterian
 ```
 
-## Installing BrowserAI
+Mysterian makes it simple to start using AI models in your React and Next.js applications. You can use our `<GenLLM>` component, the `useGenLLM` hook, and a provider to manage model loading.
 
-Next, install BrowserAI as a dependency in your project:
+## Setting Up the Provider
 
-```bash
-npm install browserai
-# or
-yarn add browserai
-```
+To use Mysterian in your application, you need to set up the provider. This handles the loading of models and provides context to the rest of your app.
 
-## Using BrowserAI in Your React Application
+### Provider Setup
 
-### Initializing the Model
+```jsx filename="pages/_app.jsx"
+import { MysterianProvider } from 'mysterian';
 
-To use BrowserAI in your React application, you need to initialize the model. Here’s how you can do it:
-
-```jsx
-import React, { useEffect, useState } from 'react';
-import { initializeModel } from 'browserai';
-
-function App() {
-  const [model, setModel] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-
-  useEffect(() => {
-    async function setupModel() {
-      const loadedModel = await initializeModel('Mistral 7B', (progress) => {
-        setLoadingProgress(progress);
-      });
-      setModel(loadedModel);
-      setLoading(false);
-    }
-
-    setupModel();
-  }, []);
-
+function MyApp({ Component, pageProps }) {
   return (
-    <div>
-      <h1>AI-Powered React Application</h1>
-      {loading ? (
-        <div>
-          <p>Loading model... {loadingProgress}%</p>
-        </div>
-      ) : (
-        <p>Model loaded successfully!</p>
-      )}
-    </div>
+    <MysterianProvider>
+      <Component {...pageProps} />
+    </MysterianProvider>
   );
 }
 
-export default App;
+export default MyApp;
 ```
 
-### Using the Model
+## Using the `<GenLLM>` Component
 
-Once the model is loaded, you can use it to perform inference tasks. Here’s an example of using the model for text generation:
+Create a new component or page in your project. Here’s how you can use the `<GenLLM>` component to perform a basic model inference:
 
-```jsx
-import React, { useState } from 'react';
-import { useGenLLM } from 'browserai';
+```jsx filename="pages/index.jsx"
+import { GenLLM } from 'mysterian';
 
-function TextGenerator() {
+export default function Home() {
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+      <GenLLM
+        model="Llama7B"
+        input="What is the capital of France?"
+        render={({ response }) => <p>Response: {response}</p>}
+      />
+    </div>
+  );
+}
+```
+
+## Using the `useGenLLM` Hook
+
+For more control over your AI interactions, you can use the `useGenLLM` hook. Here’s an example of how to use it:
+
+```jsx filename="pages/index.jsx"
+import { useState } from 'react';
+import { useGenLLM } from 'mysterian';
+
+export default function Home() {
   const [input, setInput] = useState('');
-  const { response, runInference } = useGenLLM({ model: 'Mistral 7B' });
+  const { response, runInference } = useGenLLM({ model: 'Llama7B' });
 
   const handleSubmit = () => {
     runInference(input);
@@ -91,68 +78,124 @@ function TextGenerator() {
 
   return (
     <div>
-      <h2>Text Generator</h2>
+      <h1>AI-Powered Application</h1>
       <input
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button onClick={handleSubmit}>Generate Text</button>
+      <button onClick={handleSubmit}>Ask AI</button>
       {response && <p>Response: {response}</p>}
     </div>
   );
 }
-
-export default TextGenerator;
 ```
 
-## Customizing Hardware Preferences
+## Customizing Model and Hardware
 
-BrowserAI intelligently probes for available hardware, but you can also specify hardware preferences for your model execution:
+### Using the `<GenLLM>` Component with Custom Hardware
 
-```jsx
-import React, { useEffect, useState } from 'react';
-import { initializeModel } from 'browserai';
+```jsx filename="pages/index.jsx"
+import { GenLLM } from 'mysterian';
 
-function App() {
-  const [model, setModel] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0);
-
-  useEffect(() => {
-    async function setupModel() {
-      const loadedModel = await initializeModel('Mistral 7B', { hardware: 'gpu' }, (progress) => {
-        setLoadingProgress(progress);
-      });
-      setModel(loadedModel);
-      setLoading(false);
-    }
-
-    setupModel();
-  }, []);
-
+export default function Home() {
   return (
     <div>
-      <h1>AI-Powered React Application</h1>
-      {loading ? (
-        <div>
-          <p>Loading model... {loadingProgress}%</p>
-        </div>
-      ) : (
-        <p>Model loaded successfully on GPU!</p>
-      )}
+      <h1>AI-Powered Application</h1>
+      <GenLLM
+        model="Llama7B"
+        hardware="gpu"
+        input="Explain quantum computing."
+        render={({ response }) => <p>Response: {response}</p>}
+      />
     </div>
   );
 }
-
-export default App;
 ```
 
-## Conclusion
+### Using the `useGenLLM` Hook with Dynamic Model Switching
 
-Integrating BrowserAI with a React application is straightforward and opens up powerful AI capabilities directly in the browser. By following this guide, you can get started quickly and efficiently, leveraging the advanced features of BrowserAI to build intelligent and responsive applications.
+```jsx filename="pages/index.jsx"
+import { useState } from 'react';
+import { useGenLLM } from 'mysterian';
 
-For more detailed information and advanced usage, refer to the [BrowserAI Documentation](https://example.com/docs).
+export default function Home() {
+  const [model, setModel] = useState('Llama7B');
+  const [input, setInput] = useState('');
+  const { response, runInference } = useGenLLM({ model, hardware: 'gpu' });
+
+  const handleSubmit = () => {
+    runInference(input);
+  };
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+      <select onChange={(e) => setModel(e.target.value)} value={model}>
+        <option value="Llama7B">Llama7B</option>
+        <option value="Llama13B">Llama13B</option>
+        <option value="BERT">BERT</option>
+      </select>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Ask AI</button>
+      {response && <p>Response: {response}</p>}
+    </div>
+  );
+}
 ```
 
-This draft provides a comprehensive guide on how to set up and integrate BrowserAI with a React application, including installing the necessary dependencies, initializing models, and providing examples of using the models in the application. It also covers how to customize hardware preferences for optimal performance.
+## Handling Errors
+
+Mysterian provides error handling mechanisms to help you manage any issues that arise during model inference.
+
+### Error Handling Example
+
+```jsx filename="pages/index.jsx"
+import { useState } from 'react';
+import { useGenLLM } from 'mysterian';
+
+export default function Home() {
+  const [input, setInput] = useState('');
+  const { response, error, runInference } = useGenLLM({ model: 'Llama7B' });
+
+  const handleSubmit = () => {
+    runInference(input);
+  };
+
+  return (
+    <div>
+      <h1>AI-Powered Application</h1>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Ask AI</button>
+      {error && <p>Error: {error.message}</p>}
+      {response && <p>Response: {response}</p>}
+    </div>
+  );
+}
+```
+
+<Callout type="info">
+  You can import both Server and Client components in your fixtures, which run on the server by default. You can also add the `'use client'` directive to a fixture module (or decorator) if you want to use Hooks inside it.
+</Callout>
+
+## Further Integration
+
+To learn more about integrating Mysterian with other tools and frameworks, check out the [Quickstarts section](/quickstarts).
+
+## Community
+
+Join the Mysterian community on [Discord](https://www.mysterian.com/s/d). Whether you need help, want to share your creations, or simply chat about AI and web development, our community is the place to be!
+
+If you find a bug in Mysterian, please report it using our [Bug Report Form](/bug).
+
+Our [Code of Conduct](https://github.com/MysterianAI/mysterian/blob/main/.github/CODE_OF_CONDUCT.md) applies to all Mysterian community channels.
+
+We look forward to seeing what you create with Mysterian. Let's push the boundaries of what's possible in the browser together!
