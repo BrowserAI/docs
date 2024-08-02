@@ -1,0 +1,77 @@
+---
+title: Supported Engines
+description: An overview of the browser engines and platforms supported by Mysterian for running Large Language Models.
+---
+
+# Supported Engines
+
+Mysterian is designed to work across a wide range of modern web browsers and platforms, ensuring broad compatibility and accessibility. This page outlines the primary engines and environments supported by Mysterian.
+
+## Browser Engines
+
+Mysterian is compatible with the following major browser engines:
+
+### 1. Chromium (Blink)
+
+- **Browsers:** Google Chrome, Microsoft Edge, Opera, Brave, and other Chromium-based browsers
+- **Platforms:** Windows, macOS, Linux, Android
+- **Notes:** Excellent performance and wide adoption make Chromium-based browsers a primary target for Mysterian.
+
+### 2. WebKit
+
+- **Browsers:** Safari
+- **Platforms:** macOS, iOS, iPadOS
+- **Notes:** WebKit powers all browsers on iOS and iPadOS due to Apple's policies, making it crucial for mobile web applications.
+
+### 3. Gecko
+
+- **Browsers:** Mozilla Firefox
+- **Platforms:** Windows, macOS, Linux, Android
+- **Notes:** Firefox's commitment to web standards and privacy aligns well with Mysterian's goals.
+
+## Desktop Platforms
+
+### Electron
+
+Electron is a popular framework for building cross-platform desktop applications using web technologies. Mysterian fully supports Electron-based applications, allowing developers to create powerful AI-driven desktop software.
+
+- **Advantages:**
+
+  - Cross-platform compatibility (Windows, macOS, Linux)
+  - Access to native OS features
+  - Ability to package web applications as standalone desktop apps
+
+- **Use Cases:**
+  - Offline-capable AI assistants
+  - Local document analysis tools
+  - AI-powered productivity applications
+
+## Mobile Platforms
+
+While Mysterian primarily targets desktop environments due to their higher computational resources, it can also function on mobile platforms with some considerations:
+
+- **iOS/iPadOS:** Works through WebKit-based browsers (Safari, Chrome for iOS)
+- **Android:** Supported on Chromium-based browsers and Firefox
+
+**Note:** Performance on mobile devices may vary depending on the device's capabilities and the complexity of the LLM being used.
+
+## Performance Considerations
+
+The performance of Mysterian can vary across different engines and platforms. Factors that can affect performance include:
+
+- JavaScript engine optimizations
+- WebAssembly support and performance
+- Available system resources (CPU, GPU, memory)
+- Implementation of Web Workers and other multithreading capabilities
+
+We recommend testing your Mysterian-based application across multiple engines and platforms to ensure optimal performance and compatibility.
+
+## Future Support
+
+The Mysterian team is committed to expanding support for new engines and platforms as they emerge. We actively monitor developments in the browser landscape to ensure Mysterian remains compatible with cutting-edge web technologies.
+
+For the most up-to-date information on engine support and performance recommendations, please refer to our [GitHub repository](https://github.com/mysterian/mysterian) or join our [community forums](/community).
+
+---
+
+We hope this overview helps you understand the range of platforms where you can deploy Mysterian-powered applications. If you have any questions about specific engine support or need assistance with optimization, don't hesitate to reach out to our support team.
